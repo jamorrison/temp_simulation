@@ -1,6 +1,8 @@
 import errors
 import utils
 
+# TODO: change boundary values for thermostat
+# TODO: should I change boundary values for outside temperatures also?
 def validate(d):
     """Validate input values from config file.
 
