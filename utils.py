@@ -3,10 +3,10 @@ ALMOST_ZERO = 0.000001
 
 AIR_DENSITY = 1.293 # kg / m^3
 
-K_FIBERGLASS = 136.8 # thermal conductivity of fiberglass [joule / (meter*hour*degree)]
-K_GLASS = 2808 # thermal conductivity of glass [joule / (meter*hour*degree)]
+K_FIBERGLASS = 136.8 / 60 # thermal conductivity of fiberglass [joule / (meter*minute*degree)]
+K_GLASS = 2808 / 60 # thermal conductivity of glass [joule / (meter*minute*degree)]
 
-HEATER_AIR_MASS = 3600 # mass of air passing through heater [kilogram / hour]
+HEATER_AIR_MASS = 3600 / 60 # mass of air passing through heater [kilogram / minute]
 HEATER_TEMP = 50 # [degree Celsius]
 
 AIR_SPECIFIC_HEAT = 1005.4 # specific heat of air [joule / (kilogram*degree C)]
