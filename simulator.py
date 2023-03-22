@@ -2,8 +2,24 @@ import json
 import sys
 
 import validate
+import heater
 import errors
 import utils
+import room
+
+def load_config():
+    """Load config JSON file."""
+    with open('config.json') as fh:
+        out = json.load(fh)
+
+    try:
+        out = validate.validate(out)
+    except errors.MissingKeyError as e:
+        print(utils.KEYS)
+        print(e)
+        sys.exit(1)
+
+    return out
 
 def preprocess_values(d):
     """Calculate necessary variables and convert non-metric units.
@@ -55,21 +71,13 @@ def preprocess_values(d):
     # Effective R value
     d['R_effective'] = (R_wall * R_window) / (R_wall + R_window)
 
+    ## Starting temperature of room
+    d['room']['starting_temp'] = 22
+
+    ## Simulation run time
+    d['run_time'] = 2 * 24 * 60 # Number of minutes in 2 days
+
     return d
-
-def load_config():
-    """Load config JSON file."""
-    with open('config.json') as fh:
-        out = json.load(fh)
-
-    try:
-        out = validate.validate(out)
-    except errors.MissingKeyError as e:
-        print(utils.KEYS)
-        print(e)
-        sys.exit(1)
-
-    return out
 
 def main():
     # Load user defined values
@@ -79,6 +87,17 @@ def main():
     input_values = preprocess_values(config)
 
     # TODO: start implementing the actual heat transfer
+    # Set up room and it's initial conditions
+    room = room.Room(input_values['room']['starting_temp'])
+
+    # Set up heater and determine if it should be on or off
+    heater = heater.Heater(input_values['room']['thermostat_temp'], False)
+    heater.set_status(room.temp)
+
+    # Setup outside temperatures for each minute of the simulation
+    temps = []
+    if input_values['outside']['type'] == 'fixed':
+        temps = input_values['run_time'] * [input_values['outside']['fixed_temp']]
 
     return None
 
