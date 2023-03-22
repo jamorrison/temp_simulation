@@ -90,5 +90,9 @@ def validate(d):
         if d['outside']['max_temp'] < -20 or d['outside']['max_temp'] > 50:
             raise errors.InvalidValueError('Outside maximum temperature (C) must be in range [-20, 50], inclusive')
 
+    # Outside temperatures types
+    if d['outside']['type'] not in ['fixed', 'sinusoidal']:
+        raise errors.InvalidValueError('Outside temperature type hsould be "fixed" or "sinusoidal"')
+
     return d
 
