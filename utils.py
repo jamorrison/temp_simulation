@@ -24,7 +24,7 @@ Format of config file with valid inputs:
         "depth": float (> 0),
         "height": float (> 0),
         "wall_thickness": float (> 0),
-        "thermostat_temp": float (-10 <= degrees C <= 40, 14 <= degrees F <= 104)
+        "thermostat_temp": float (10 <= degrees C <= 40, 50 <= degrees F <= 86)
     },
     "window": {
         "width": float (> 0),

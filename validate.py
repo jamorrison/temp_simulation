@@ -1,8 +1,6 @@
 import errors
 import utils
 
-# TODO: change boundary values for thermostat
-# TODO: should I change boundary values for outside temperatures also?
 def validate(d):
     """Validate input values from config file.
 
@@ -72,7 +70,7 @@ def validate(d):
 
     # Temperatures
     if d['units']['temperature'] == 'f':
-        if d['room']['thermostat_temp'] < 14 or d['room']['thermostat_temp'] > 104:
+        if d['room']['thermostat_temp'] < 50 or d['room']['thermostat_temp'] > 86:
             raise errors.InvalidValueError('Room thermostat temperature (F) must be in range [14, 104], inclusive')
         if d['outside']['fixed_temp'] < -4 or d['room']['thermostat_temp'] > 122:
             raise errors.InvalidValueError('Outside fixed temperature (F) must be in range [-4, 122], inclusive')
@@ -81,7 +79,7 @@ def validate(d):
         if d['outside']['max_temp'] < -4 or d['outside']['max_temp'] > 122:
             raise errors.InvalidValueError('Outside maximum temperature (F) must be in range [-4, 122], inclusive')
     else:
-        if d['room']['thermostat_temp'] < -10 or d['room']['thermostat_temp'] > 40:
+        if d['room']['thermostat_temp'] < 10 or d['room']['thermostat_temp'] > 30:
             raise errors.InvalidValueError('Room thermostat temperature (C) must be in range [-10, 40], inclusive')
         if d['outside']['fixed_temp'] < -20 or d['room']['thermostat_temp'] > 122:
             raise errors.InvalidValueError('Outside fixed temperature (C) must be in range [-20, 50], inclusive')
