@@ -113,7 +113,6 @@ def main():
     # Process user values, convert non-metric values if needed
     inputs = preprocess_values(config)
 
-    # TODO: start implementing the actual heat transfer
     # Set up room and it's initial conditions
     room = Room(inputs['room']['starting_temp'])
 
@@ -139,7 +138,10 @@ def main():
         r_temps.append(room.temp)
         h_stats.append(1 if heater.on else 0)
 
-    #fig = plt.figure()
+    if inputs['units']['temperature'] == 'f':
+        r_temps = [utils.celsius_to_fahrenheit(v) for v in r_temps]
+        o_temps = [utils.celsius_to_fahrenheit(v) for v in o_temps]
+        inputs['room']['thermostat_temp'] = utils.celsius_to_fahrenheit(inputs['room']['thermostat_temp'])
 
     plt.plot(times, o_temps, 'k-', label='Outdoor Temp')
     plt.plot(times, r_temps, 'r-', label='Room Temp')
