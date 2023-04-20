@@ -147,7 +147,7 @@ def main():
     plt.plot(times, r_temps, 'r-', label='Room Temp')
     plt.plot(times, h_stats, 'g-', label='Heater status')
 
-    plt.show()
+    plt.savefig('temp_simulator.pdf')
 
     return None
 
